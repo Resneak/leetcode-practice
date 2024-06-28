@@ -16,7 +16,6 @@ class Solution:
                 emptylist.append(nums2[element])
 
         emptylist.sort()
-        print(emptylist)
 
         for element in range(m+n):
             nums1[element] = emptylist[element]
