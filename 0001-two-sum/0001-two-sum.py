@@ -1,14 +1,20 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
 
-        #nums = nums.sort()
+        dict1 = {}
 
-        for index1, x in enumerate(nums):
+        for index, element in enumerate(nums):
 
-            for count in range(index1+1, len(nums)):
+            Looking4 = target - element
 
-                y = nums[count]
+            if Looking4 in dict1:
+                return [dict1[Looking4],index]
 
-                if x + y == target:
-                    return [index1, count]
+            else:
+
+                dict1[element] = index
+
+
+
+        
         
