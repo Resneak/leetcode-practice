@@ -1,24 +1,14 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         
-        dict1 = {}
-        dict2 = {}
+        from collections import Counter
 
+        counts4s = Counter(s)
 
-        for letter in s:
+        counts4t = Counter(t)
 
-            if letter not in dict1:
-                dict1[letter] = s.count(letter)
-
-
-        for letter in t:
-
-            if letter not in dict2:
-                dict2[letter] = t.count(letter)
-
-
-        if dict1 == dict2:
+        if counts4s == counts4t:
             return True
+
         else:
             return False
-            
