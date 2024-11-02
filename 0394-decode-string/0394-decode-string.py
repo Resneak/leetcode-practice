@@ -1,36 +1,56 @@
 class Solution:
     def decodeString(self, s: str) -> str:
         
-        stack = []  # This will store tuples of (count, previous string state)
-        tempCount = ""
-        tempString = ""
+        stack = []
+        final = ""
 
         for c in s:
-            if c.isdigit():
-                tempCount += c
 
-            elif c == '[':
-                # Push the current count and tempString to the stack
-                stack.append((int(tempCount), tempString))
-                tempCount = ""      # Reset tempCount for the next number
-                tempString = ""      # Reset tempString for the nested string
+            if c == ']': # 3,[,a
+                isDigit = False
+                tempMultiply = ""
+                tempString = ""
+                while True:
+                    
+                    if not stack:
+                        break
 
-            elif c == ']':
-                # Pop the last (count, previous string state) from the stack
-                PrevTemps = stack.pop()
-                repeat_count = PrevTemps[0]
-                prev_string = PrevTemps[1]
+                    print(stack)
 
-                # Update tempString: decoded current part + previous state
-                tempString = prev_string + (tempString * repeat_count)
+                    unknown = stack.pop()
+
+                    if unknown.isdigit():
+                        if isDigit == False:
+                            isDigit = True
+
+                        tempMultiply = unknown + tempMultiply # "3"
+                    
+                    elif isDigit == True and not unknown.isdigit():
+                        stack.append(unknown)
+                        break
+
+                    elif unknown == '[':
+                        pass
+
+                    else:
+                        tempString = unknown + tempString # "a"
+
+                print(tempMultiply)
+                print(tempString)
+
+                final4brackets = int(tempMultiply) * tempString
+
+                if stack:
+                    stack.append(final4brackets)
+                else:
+                    final = final + final4brackets
+                    
 
             else:
-                # Add characters to tempString
-                tempString += c
+                stack.append(c)
 
-        return tempString
+        toAdd = ""
+        while stack:
+            toAdd = stack.pop() + toAdd
 
-        
-
-
-
+        return final + toAdd
